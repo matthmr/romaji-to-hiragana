@@ -57,7 +57,7 @@ enum JA_CONSONANTS {
 typedef enum JA_CONSONANTS jconson;
 
 enum JA_PONCTUATION {
-	_POINT, _COMMA, _LONG, //_SPACE,
+	_POINT, _COMMA, //_LONG, //_SPACE,
 };
 typedef enum JA_PONCTUATION jponct;
 
@@ -588,7 +588,7 @@ const jtable jman[] = {
 const jchar2 jpman[] = {
 	[_POINT] = "。\000\000",
 	[_COMMA] = "、\000\000",
-	[_LONG] = "ー\000\000",
+	//[_LONG] = "ー\000\000",
 	//[_SPACE] = "　",
 };
 

@@ -43,12 +43,16 @@ it can be used in the output of piped kkc.
 Usage alongside `kkc.awk` *should* look as such:
 
 ```txt
-$ romaji "kore ha nani" | sed 's/$/4/' | kkc | kkc.awk
+$ romaji "kore ha nani" | sed 's/$/ 4/' | kkc | kkc.awk
 コレハナに
 コレは何
 これは何
 これはなに
 ```
+
+This repository also includes a sed script for common transliteration of misleading
+particles like `wa` (は) as in (kimi wa - 君は) & `e` as in (nihon e - 日本へ).
+The script is `norm.sed`.
 
 ## License
 

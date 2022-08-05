@@ -70,18 +70,16 @@ static char throwr = '\0';
 static jtable* ccr = NULL;
 static slock jlock = 0;
 
-static void inline jbufappend_lock (char c, const jchar2 jc) {
-	if (! jman[throwr ascii].comp.it) {
+static void inline delim (char c, const jchar2 jc) {
+	if (throwr && ! jman[throwr ascii].comp.it) {
 		waflush ();
 		jbufappend (jman[throwr ascii].man._);
-		throwr = c;
-		wabufappend (c);
 	}
-	else {
+	else if (throwr) {
 		wawrite ();
-		drop (jlock);
 	}
-	jbufappend (jc);
+	drop (jlock);
+	if (jc) jbufappend (jc);
 	return;
 }
 
@@ -104,7 +102,7 @@ void throw (char c) {
 			jtableman* jtman = (jtableman*) ccr->comp.y.as;
 			jchar2* jmbc = (jchar2*) jmindex (&ccr->man, ccr->comp.y.it ASCII);
 			jbufappend (*jmbc);
-			jmbc = (jchar2*) jmindex (ccr->comp.y.as, c);
+			jmbc = (jchar2*) jmindex (jtman, c);
 			jbufappend (*jmbc);
 			y_out: {
 				ccr = NULL;
@@ -122,7 +120,7 @@ void throw (char c) {
 			jchar2* jmbc = (jchar2*) jmindex (&ccr->man, ccr->comp.conson.base ASCII);
 			if (c != ccr->comp.conson.ign ASCII) {
 				jbufappend (*jmbc);
-				jmbc = (jchar2*) jmindex (ccr->comp.conson.as, c);
+				jmbc = (jchar2*) jmindex (jtman, c);
 			}
 			jbufappend (*jmbc);
 			comp_out: {
@@ -272,11 +270,10 @@ void parse (char* buf) {
 			convert (c, &jc);
 		}
 		else switch (c) {
-			case ' ': //jbufappend (jpman[_SPACE]);
-				continue;
-			case '.': jbufappend_lock (c, jpman[_POINT]); break;
-			case ',': jbufappend_lock (c, jpman[_COMMA]); break;
-			case '-': jbufappend_lock (c, jpman[_LONG]); break;
+			case ' ': case '\t': case '\r': case '\n': case '-':
+				delim (c, DONT); break;
+			case '.': delim (c, jpman[_POINT]); break;
+			case ',': delim (c, jpman[_COMMA]); break;
 			default:  abufappend (c); continue;
 		}
 	}
