@@ -239,6 +239,7 @@ void resolve (char c) {
 	else dump: {
 		abufappend (c);
 	}
+	drop (jlock);
 	return;
 }
 
