@@ -53,6 +53,8 @@ enum JA_CONSONANTS {
 	_Z = 'z' ascii,
 	_Q = 'q' ascii,
 	_X = 'x' ascii,
+	_L = 'l' ascii,
+	_V = 'v' ascii,
 };
 typedef enum JA_CONSONANTS jconson;
 
@@ -104,9 +106,15 @@ const jtableman jvman = {
 	._ALT = DONT,
 };
 
-//const jtableman* jsman[] = {
-//	&jyman, &jvman,
-//};
+const jtableman jkman = {
+	._ = DONT,
+	._a = "ぁ",
+	._i = "ぃ",
+	._u = "ぅ",
+	._e = "ぇ",
+	._o = "ぉ",
+	._ALT = DONT,
+};
 
 const jtable jman[] = {
 	[_ ASCII] = {
@@ -130,6 +138,81 @@ const jtable jman[] = {
 			._u = "う",
 			._e = "え",
 			._o = "お",
+			._ALT = DONT,
+		},
+	},
+
+	[_X] = {
+		.comp = {
+			.it = true,
+			.y = {
+				.it = _ALT,
+				.as = &jyman,
+			},
+			.conson = {
+				.it = _K,
+				.base = _ALT,
+				.ign = DONT,
+				.as = &jkman,
+			},
+		},
+		.man = {
+			._ = DONT,
+			._a = "ぁ",
+			._i = "ぃ",
+			._u = "ぅ",
+			._e = "ぇ",
+			._o = "ぉ",
+			._ALT = DONT,
+		},
+	},
+
+	[_L] = {
+		.comp = {
+			.it = true,
+			.y = {
+				.it = _ALT,
+				.as = &jyman,
+			},
+			.conson = {
+				.it = _K,
+				.base = _ALT,
+				.ign = DONT,
+				.as = &jkman,
+			},
+		},
+		.man = {
+			._ = DONT,
+			._a = "ぁ",
+			._i = "ぃ",
+			._u = "ぅ",
+			._e = "ぇ",
+			._o = "ぉ",
+			._ALT = DONT,
+		},
+	},
+
+	[_V] = {
+		.comp = {
+			.it = true,
+			.y = {
+				.it = _U,
+				.as = &jyman,
+			},
+			.conson = {
+				.it = DONT,
+				.base = DONT,
+				.ign = DONT,
+				.as = NULL,
+			},
+		},
+		.man = {
+			._ = DONT,
+			._a = "ゔぁ",
+			._i = "ゔぃ",
+			._u = "ゔ",
+			._e = "ゔぇ",
+			._o = "ゔぉ",
 			._ALT = DONT,
 		},
 	},
