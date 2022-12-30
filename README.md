@@ -37,10 +37,10 @@ awk -F: '/^([0-9]+:|>> 0:) <[^mcQ]/ {
 
 I wrap this shell code in a function that gets sourced by my `~/.zshrc` so I can
 call this by passing the function name, instead of the script name but whichever
-implementation works. The awk script will be in the repository root as `kkc.awk`,
+implementation works. The awk script will be in the repository root as `scripts/kkc.awk`,
 it can be used in the output of piped kkc.
 
-Usage alongside `kkc.awk` *should* look as such:
+Usage alongside `scripts/kkc.awk` *should* look as such:
 
 ```txt
 $ romaji "kore ha nani" | sed 's/$/ 4/' | kkc | kkc.awk
@@ -52,7 +52,10 @@ $ romaji "kore ha nani" | sed 's/$/ 4/' | kkc | kkc.awk
 
 This repository also includes a sed script for common transliteration of misleading
 particles like `wa` (は) as in (kimi wa - 君は) & `e` as in (nihon e - 日本へ).
-The script is `norm.sed`.
+The script is `scripts/norm.sed`. Also, this project can integrate with [kakasi] to have
+full conversion as shown by the graph:
+
+![conversion](assets/conversion.svg)
 
 ## License
 
